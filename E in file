@@ -1,0 +1,12 @@
+"""
+percentage of the words with no "e" in a file
+"""
+fin = open("C:\\Users\\yashG\\Documents\\words.txt")
+count = 0
+total = 0
+for i in fin:
+    if 'e' not in i:
+        print(i)
+        count += 1
+    total += 1
+print("percentage of words with no 'e' is:",count*100/total)
