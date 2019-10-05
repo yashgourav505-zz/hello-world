@@ -1,2 +1,1 @@
-# hello-world
-what a great day
+The hello world contains my python codes which i praticed on different websites.
