@@ -1,0 +1,7 @@
+def find_missing(sequence):
+    for i in range(len(sequence)-2):
+	    if sequence[i+2]-sequence[i+1] >  sequence[i+1]-sequence[i]:
+		    return(sequence[i+1] + sequence[i+1]-sequence[i])			
+	    elif sequence[i+2]-sequence[i+1] <  sequence[i+1]-sequence[i]:
+		    return(sequence[i] + sequence[i+2]-sequence[i+1])
+    return sequence[0]
