@@ -1,0 +1,47 @@
+"""
+For a given chemical formula represented by a string, count the number of atoms of each element contained in the molecule and return an object 
+For example:
+
+water = 'H2O'
+parse_molecule(water)                 # return {H: 2, O: 1}
+
+magnesium_hydroxide = 'Mg(OH)2'
+parse_molecule(magnesium_hydroxide)   # return {Mg: 1, O: 2, H: 2}
+
+var fremy_salt = 'K4[ON(SO3)2]2'
+parse_molecule(fremySalt)             # return {K: 4, O: 14, N: 2, S: 4}
+"""
+def parse_molecule (formula):
+    i = 0
+    dict_stack = [dict()]
+    l_bra = ('[','(','{')
+    r_bra = (']',')','}')
+    numeric = ('0','1','2','3','4','5','6','7','8','9')
+    def get_num(j):
+        ans = 0
+        while j+1 < len(formula) and formula[j+1] in numeric:
+            ans = ans*10 + int(formula[j+1])
+            j += 1
+        ans = ans if ans!=0 else 1
+        return (j,ans)
+    while True:
+        if i == len(formula):break
+        w = formula[i]
+        if w in l_bra:
+            dict_stack.append(dict())
+        elif w in r_bra:
+            last_dict = dict_stack.pop()
+            i,count_num = get_num(i)
+            for key in last_dict.keys():
+                dict_stack[-1].setdefault(key,0)
+                dict_stack[-1][key] += last_dict[key]*count_num
+        elif w.isalpha():
+            new_w = w
+            while i+1 < len(formula) and formula[i+1].islower():
+                new_w += formula[i+1]
+                i += 1
+            i,count = get_num(i)
+            dict_stack[-1].setdefault(new_w,0)
+            dict_stack[-1][new_w] += count
+        i += 1
+    return dict_stack[-1]
